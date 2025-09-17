@@ -1,0 +1,173 @@
+### Test API endpoints
+
+# Health Check
+GET http://localhost:4000/health
+
+###
+
+# Authentication - Create Session (Magic Link)
+POST http://localhost:4000/v1/auth/session
+Content-Type: application/json
+
+{
+  "email": "test@example.com"
+}
+
+###
+
+# Get Current User
+GET http://localhost:4000/v1/me
+Authorization: Bearer test-token
+
+###
+
+# Get Items (Browse Products)
+GET http://localhost:4000/v1/items?category=office-chairs&condition=good&min_price=100&max_price=500
+
+###
+
+# Get Specific Item
+GET http://localhost:4000/v1/items/650e8400-e29b-41d4-a716-446655440001
+
+###
+
+# Create Item (Admin)
+POST http://localhost:4000/v1/items
+Content-Type: application/json
+Authorization: Bearer admin-token
+
+{
+  "title": "Test Office Chair",
+  "description": "A test chair for API testing",
+  "category_id": "750e8400-e29b-41d4-a716-446655440001",
+  "condition": "good",
+  "images": ["test-chair.jpg"],
+  "location": "Seattle, WA",
+  "dimensions": {
+    "width": 24,
+    "height": 36,
+    "depth": 24,
+    "units": "in"
+  },
+  "weight": 25,
+  "buy_now_price": 200,
+  "created_by": "550e8400-e29b-41d4-a716-446655440001"
+}
+
+###
+
+# Get Categories
+GET http://localhost:4000/v1/categories
+
+###
+
+# Create Auction
+POST http://localhost:4000/v1/auctions
+Content-Type: application/json
+Authorization: Bearer admin-token
+
+{
+  "item_id": "650e8400-e29b-41d4-a716-446655440001",
+  "starts_at": "2024-12-20T09:00:00Z",
+  "ends_at": "2024-12-27T17:00:00Z",
+  "reserve_price": 100,
+  "min_increment": 5
+}
+
+###
+
+# Get Auction Details
+GET http://localhost:4000/v1/auctions/auction-id-here
+
+###
+
+# Open Auction
+POST http://localhost:4000/v1/auctions/auction-id-here/open
+Authorization: Bearer admin-token
+
+###
+
+# Place Bid
+POST http://localhost:4000/v1/auctions/auction-id-here/bids
+Content-Type: application/json
+Authorization: Bearer user-token
+
+{
+  "user_id": "550e8400-e29b-41d4-a716-446655440003",
+  "amount": 125
+}
+
+###
+
+# Get Auction Bids
+GET http://localhost:4000/v1/auctions/auction-id-here/bids
+
+###
+
+# Get User Bid History
+GET http://localhost:4000/v1/users/550e8400-e29b-41d4-a716-446655440003/bids?status=active
+
+###
+
+# Create Stripe Checkout
+POST http://localhost:4000/v1/checkout/stripe
+Content-Type: application/json
+Authorization: Bearer user-token
+
+{
+  "order_id": "order-123"
+}
+
+###
+
+# Cash Donation
+POST http://localhost:4000/v1/donations/cash
+Content-Type: application/json
+
+{
+  "amount": 50,
+  "email": "donor@example.com"
+}
+
+###
+
+# Goods Donation
+POST http://localhost:4000/v1/donations/goods
+Content-Type: application/json
+
+{
+  "description": "Office desk in good condition",
+  "photos": ["desk1.jpg", "desk2.jpg"],
+  "email": "donor@example.com"
+}
+
+###
+
+# Revenue Report
+GET http://localhost:4000/v1/reports/revenue?start_date=2024-01-01&end_date=2024-12-31
+Authorization: Bearer admin-token
+
+###
+
+# Impact Report
+GET http://localhost:4000/v1/reports/impact?start_date=2024-01-01&end_date=2024-12-31
+Authorization: Bearer admin-token
+
+###
+
+# Stripe Webhook (simulated)
+POST http://localhost:4000/v1/webhooks/stripe
+Content-Type: application/json
+Stripe-Signature: test-signature
+
+{
+  "type": "payment_intent.succeeded",
+  "data": {
+    "object": {
+      "id": "pi_test_123",
+      "amount": 15000,
+      "currency": "usd",
+      "status": "succeeded"
+    }
+  }
+}

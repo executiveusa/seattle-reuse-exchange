@@ -1,0 +1,98 @@
+[
+  {
+    "id": "650e8400-e29b-41d4-a716-446655440001",
+    "slug": "herman-miller-aeron-chair-size-b",
+    "title": "Herman Miller Aeron Chair - Size B",
+    "description": "Classic ergonomic office chair in good condition. This iconic chair features breathable mesh fabric, adjustable lumbar support, and Herman Miller's signature engineering. Shows normal wear from office use but remains fully functional. Perfect for home office or startup environment. Original retail price $1,400+.",
+    "category_id": "750e8400-e29b-41d4-a716-446655440001",
+    "condition": "good",
+    "images": [
+      "aeron-chair-front.jpg",
+      "aeron-chair-side.jpg", 
+      "aeron-chair-back.jpg",
+      "aeron-chair-arms.jpg"
+    ],
+    "location": "Seattle, WA - Pickup Available",
+    "dimensions": {
+      "width": 27,
+      "height": 41,
+      "depth": 27,
+      "units": "in"
+    },
+    "weight": 43,
+    "buy_now_price": 350.00,
+    "created_by": "550e8400-e29b-41d4-a716-446655440002",
+    "created_at": "2024-12-01T10:00:00Z"
+  },
+  {
+    "id": "650e8400-e29b-41d4-a716-446655440002",
+    "slug": "standing-desk-60-adjustable",
+    "title": "Electric Standing Desk 60\" - Height Adjustable",
+    "description": "Premium electric standing desk in like-new condition. Dual motor system with memory presets for sit/stand positions. Spacious 60\" x 30\" work surface perfect for multiple monitors. Rescued from a tech startup closure. Includes all original accessories and cable management tray.",
+    "category_id": "750e8400-e29b-41d4-a716-446655440002", 
+    "condition": "like_new",
+    "images": [
+      "standing-desk-raised.jpg",
+      "standing-desk-lowered.jpg",
+      "standing-desk-controls.jpg"
+    ],
+    "location": "Seattle, WA - Delivery Available",
+    "dimensions": {
+      "width": 60,
+      "height": 48,
+      "depth": 30, 
+      "units": "in"
+    },
+    "weight": 150,
+    "buy_now_price": 280.00,
+    "created_by": "550e8400-e29b-41d4-a716-446655440002",
+    "created_at": "2024-12-01T11:00:00Z"
+  },
+  {
+    "id": "650e8400-e29b-41d4-a716-446655440003",
+    "slug": "macbook-pro-2019-16inch",
+    "title": "MacBook Pro 16\" 2019 - i7 16GB 512GB",
+    "description": "Professional laptop in fair condition. Intel i7 processor, 16GB RAM, 512GB SSD. Screen has minor scratches but no dead pixels. Battery holds charge well. Includes original charger and box. Perfect for students or budget-conscious professionals.",
+    "category_id": "750e8400-e29b-41d4-a716-446655440003",
+    "condition": "fair",
+    "images": [
+      "macbook-closed.jpg",
+      "macbook-open.jpg",
+      "macbook-ports.jpg"
+    ],
+    "location": "Seattle, WA - Pickup Only",
+    "dimensions": {
+      "width": 14.09,
+      "height": 0.64,
+      "depth": 9.68,
+      "units": "in"
+    },
+    "weight": 4.3,
+    "buy_now_price": 750.00,
+    "created_by": "550e8400-e29b-41d4-a716-446655440001",
+    "created_at": "2024-12-01T12:00:00Z"
+  },
+  {
+    "id": "650e8400-e29b-41d4-a716-446655440004",
+    "slug": "office-mystery-pallet-lot-47",
+    "title": "Office Mystery Pallet - Lot #47",
+    "description": "Exciting mystery pallet containing various office items from a corporate liquidation. Previous pallets have included monitors, keyboards, desk accessories, plants, books, and surprise electronics. Contents vary - that's the fun! Great for resellers or adventurous bidders.",
+    "category_id": "750e8400-e29b-41d4-a716-446655440005",
+    "condition": "parts",
+    "images": [
+      "mystery-pallet-wrapped.jpg",
+      "mystery-pallet-preview.jpg"
+    ],
+    "location": "Seattle, WA - Pickup Required",
+    "dimensions": {
+      "width": 48,
+      "height": 60,
+      "depth": 40,
+      "units": "in"
+    },
+    "weight": 200,
+    "buy_now_price": null,
+    "created_by": "550e8400-e29b-41d4-a716-446655440002",
+    "created_at": "2024-12-01T13:00:00Z"
+  }
+]

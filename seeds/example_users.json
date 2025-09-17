@@ -1,0 +1,26 @@
+[
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440001",
+    "email": "admin@seattlereuse.exchange",
+    "name": "Admin User",
+    "role": "admin",
+    "phone": "+1-206-555-0001",
+    "created_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440002", 
+    "email": "volunteer@seattlereuse.exchange",
+    "name": "Volunteer User",
+    "role": "volunteer",
+    "phone": "+1-206-555-0002",
+    "created_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "550e8400-e29b-41d4-a716-446655440003",
+    "email": "bidder@seattlereuse.exchange", 
+    "name": "Demo Bidder",
+    "role": "bidder",
+    "phone": "+1-206-555-0003",
+    "created_at": "2024-01-01T00:00:00Z"
+  }
+]

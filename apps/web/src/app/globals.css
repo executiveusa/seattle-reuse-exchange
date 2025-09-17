@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --evergreen: 31 111 84;
+  --puget-blue: 15 76 129;
+  --salmon: 243 110 95;
+  --cedar: 90 62 54;
+  --fog-gray: 243 244 246;
+  --charcoal: 17 24 39;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: var(--charcoal);
+    --card: 0 0% 100%;
+    --card-foreground: var(--charcoal);
+    --popover: 0 0% 100%;
+    --popover-foreground: var(--charcoal);
+    --primary: var(--evergreen);
+    --primary-foreground: 0 0% 98%;
+    --secondary: var(--puget-blue);
+    --secondary-foreground: 0 0% 98%;
+    --muted: var(--fog-gray);
+    --muted-foreground: 215 13% 34%;
+    --accent: var(--salmon);
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: var(--evergreen);
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: var(--charcoal);
+    --foreground: 0 0% 98%;
+    --card: var(--charcoal);
+    --card-foreground: 0 0% 98%;
+    --popover: var(--charcoal);
+    --popover-foreground: 0 0% 98%;
+    --primary: var(--evergreen);
+    --primary-foreground: var(--charcoal);
+    --secondary: var(--puget-blue);
+    --secondary-foreground: 0 0% 98%;
+    --muted: 215 32% 27%;
+    --muted-foreground: 215 5% 75%;
+    --accent: var(--salmon);
+    --accent-foreground: var(--charcoal);
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 215 32% 27%;
+    --input: 215 32% 27%;
+    --ring: var(--evergreen);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .hero-gradient {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--evergreen)) 0%,
+      rgb(var(--puget-blue)) 100%
+    );
+  }
+  
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 focus:ring-primary;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/90 focus:ring-secondary;
+  }
+}

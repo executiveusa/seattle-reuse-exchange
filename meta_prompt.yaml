@@ -1,0 +1,87 @@
+# meta_prompt: zero_landfill_auctions_taskmaster_v4
+meta:
+  title: "Seattle Reuse Exchange"
+  mission: "Keep usable items out of landfills by auctioning and reselling them to fund our nonprofit work."
+  brand_values: ["Loyalty", "Honor", "Truth", "Respect"]
+  org_type: "Social Purpose Company (for-profit) — Seattle, WA"
+  authoring_target: "leap.new codegen pipeline"
+  output_mode: "generate-complete-monorepo"
+  deployment_targets:
+    frontend: "Vercel (Next.js App Router)"
+    backend: "Encore Cloud (Go)"
+  quality_gate_min_score: 8.8
+  review_mode: "taskmaster_auto_iterate_until_pass"
+  license: "Apache-2.0 (project), see NOTICE for third-party"
+
+spec_kit:
+  required_outputs:
+    - name: monorepo
+      type: directory
+      must_include:
+        - apps/web # Next.js 14+ App Router, TS, Tailwind, shadcn/ui
+        - services/api # Encore (Go) services, endpoints, cron, auth
+        - packages/ui # shared React UI + tokens
+        - packages/config # eslint, tsconfig, tailwind, prettier, vitest
+        - infra # DB migrations, seed scripts, Meilisearch indexers
+        - .github/workflows # CI (lint/typecheck/test/build/deploy)
+        - README.md
+        - docs/
+    - name: seeds
+      type: directory
+      must_include: [example_items.json, example_users.json, example_images/]
+    - name: environment_files
+      type: files
+      must_include: [".env.example", "apps/web/.env.local.example", "services/api/.env.encore.example"]
+    - name: acceptance_tests
+      type: directory
+      must_include: ["playwright/", "api/*.http", "load/*.k6.js"]
+
+  formatting_rules:
+    - "All config files are valid and runnable as committed."
+    - "TypeScript passes with 'strict: true' and '--noEmit'."
+    - "Go builds with 'encore run' and 'go build ./...'."
+
+  success_criteria:
+    - "pnpm i && pnpm -w build completes without errors."
+    - "encore run starts API locally with seeded DB."
+    - "E2E passes: create item → open auction → live bids (anti-sniping) → winner → Stripe checkout → receipt → pickup scheduling."
+
+branding:
+  name: "Seattle Reuse Exchange"
+  tagline: "Auctions that keep good stuff in use."
+  colors:
+    evergreen: "#1F6F54" # primary
+    puget_blue: "#0F4C81" # secondary
+    salmon: "#F36E5F" # accent/CTA
+    cedar: "#5A3E36" # deep support
+    fog_gray: "#F3F4F6" # surfaces
+    charcoal: "#111827" # text/contrast
+    success: "#10B981"
+    warning: "#F59E0B"
+    error: "#EF4444"
+
+frontend:
+  framework: "Next.js App Router, React 18, TypeScript strict"
+  styling: ["TailwindCSS", "shadcn/ui", "lucide-react", "framer-motion"]
+  auth: "next-auth (magic link + Google OAuth); roles: admin, manager, volunteer, bidder"
+  payments: ["Stripe (Checkout)"]
+  upload: "S3/R2 via signed URLs; next/image; drag-and-drop"
+  realtime: "SSE or WebSocket client bound to Encore event stream for live bids"
+  search: "Meilisearch instant search & typo tolerance on /browse"
+
+backend:
+  language: "Go 1.22+"
+  framework: "Encore"
+  db: "Postgres (Encore provisioned)"
+  storage: "S3/R2 signed uploads"
+  email: "Resend"
+  sms: "Twilio (enabled)"
+  search: "Meilisearch (enabled)"
+
+architecture:
+  style: "Monorepo (pnpm + Turborepo)"
+  diagram_text:
+    - "apps/web (Next.js, TS, RSC) ⇄ services/api (Encore Go) ⇄ Postgres"
+    - "apps/web → Stripe (client intents)"
+    - "services/api → Stripe (webhooks), Resend (email), Twilio (SMS)"
+    - "S3/R2 for images; Meilisearch enabled for catalog search"
