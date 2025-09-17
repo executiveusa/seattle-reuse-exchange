@@ -2,6 +2,7 @@ package bids
 
 import (
 	"context"
+	"fmt"
 	"testing"
 	"time"
 
@@ -283,4 +284,4 @@ func BenchmarkCalculateMinIncrement(b *testing.B) {
 		amount := amounts[i%len(amounts)]
 		calculateMinIncrement(amount)
 	}
-}
+}}
