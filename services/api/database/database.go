@@ -11,8 +11,3 @@ import (
 var DB = sqldb.NewDatabase("seattle_reuse", sqldb.DatabaseConfig{
 	Migrations: "./migrations",
 })
-
-// AI-CHAT: Database connection getter for use across services
-func GetDB() *sqldb.Database {
-	return DB
-}
