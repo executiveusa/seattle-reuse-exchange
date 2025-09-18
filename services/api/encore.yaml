@@ -1,0 +1,26 @@
+# Encore Cloud Configuration for Seattle Reuse Exchange
+
+global:
+  experiments:
+    - "encore.experimental.namespace_packages"
+
+database:
+  seattle_reuse:
+    # Encore will provision PostgreSQL database automatically
+    migrations: "./migrations"
+
+secrets:
+  - STRIPE_SECRET_KEY
+  - RESEND_API_KEY  
+  - TWILIO_AUTH_TOKEN
+  - MEILISEARCH_API_KEY
+
+build:
+  os: linux
+  arch: amd64
+
+deploy:
+  environments:
+    - development
+    - staging  
+    - production

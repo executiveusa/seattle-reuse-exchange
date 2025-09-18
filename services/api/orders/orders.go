@@ -2,6 +2,8 @@
 
 package orders
 
+import "context"
+
 //encore:api public method=POST path=/v1/checkout/stripe
 func CreateStripeCheckout(ctx context.Context, req *CheckoutRequest) (*CheckoutResponse, error) {
 	// AI-CHAT: Stripe checkout integration for auction winners

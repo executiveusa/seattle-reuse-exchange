@@ -28,7 +28,7 @@ const (
 	RoleBidder    UserRole = "bidder"
 )
 
-var db = sqldb.Named("main")
+var db = sqldb.Named("seattle_reuse")
 
 //encore:api public method=POST path=/v1/auth/session
 func CreateSession(ctx context.Context, req *CreateSessionRequest) (*CreateSessionResponse, error) {

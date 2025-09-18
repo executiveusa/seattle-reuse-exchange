@@ -51,7 +51,7 @@ const (
 	ConditionParts   ItemCondition = "parts"
 )
 
-var db = sqldb.Named("main")
+var db = sqldb.Named("seattle_reuse")
 
 //encore:api public method=GET path=/v1/items
 func GetItems(ctx context.Context, req *GetItemsRequest) (*GetItemsResponse, error) {
@@ -182,14 +182,14 @@ func ptr[T any](v T) *T {
 
 // Request/Response types
 type GetItemsRequest struct {
-	Category  *string  `query:"category"`
-	Condition *string  `query:"condition"`
-	MinPrice  *float64 `query:"min_price"`
-	MaxPrice  *float64 `query:"max_price"`
-	Location  *string  `query:"location"`
-	Search    *string  `query:"search"`
-	Page      *int     `query:"page"`
-	Limit     *int     `query:"limit"`
+	Category  string  `query:"category"`
+	Condition string  `query:"condition"`
+	MinPrice  float64 `query:"min_price"`
+	MaxPrice  float64 `query:"max_price"`
+	Location  string  `query:"location"`
+	Search    string  `query:"search"`
+	Page      int     `query:"page"`
+	Limit     int     `query:"limit"`
 }
 
 type GetItemsResponse struct {

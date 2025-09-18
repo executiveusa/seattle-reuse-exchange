@@ -16,7 +16,17 @@
     "test:load": "turbo run test:load",
     "clean": "turbo run clean",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "setup:check": "node check-setup.js",
+    "setup:env": "echo Please edit .env files with your API keys - see SETUP.md",
+    "db:migrate": "cd services/api && encore db migrate",
+    "backend": "cd services/api && encore run",
+    "frontend": "cd apps/web && pnpm dev",
+    "encore:auth": "cd services/api && encore auth login",
+    "encore:create": "cd services/api && encore app create seattle-reuse-exchange",
+    "encore:run": "cd services/api && encore run",
+    "encore:deploy": "cd services/api && encore deploy",
+    "migrate:encore": "migrate-to-encore.bat"
   },
   "devDependencies": {
     "@turbo/gen": "^1.10.16",

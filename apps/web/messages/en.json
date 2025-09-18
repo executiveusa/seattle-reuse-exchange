@@ -1,0 +1,47 @@
+{
+  "Navigation": {
+    "home": "Home",
+    "auctions": "Auctions",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "logout": "Logout",
+    "profile": "Profile"
+  },
+  "HomePage": {
+    "title": "Seattle Reuse Exchange",
+    "subtitle": "Keeping office furniture out of landfills while funding nonprofit work",
+    "heroTitle": "Transform Your Office Waste Into Community Impact",
+    "heroSubtitle": "Join Seattle's premier marketplace for office furniture that creates lasting environmental and social change",
+    "ctaText": "Start Bidding",
+    "featuresTitle": "How It Works",
+    "impactTitle": "Your Impact"
+  },
+  "Auctions": {
+    "title": "Active Auctions",
+    "noAuctions": "No active auctions at the moment",
+    "bidNow": "Bid Now",
+    "timeLeft": "Time Left",
+    "currentBid": "Current Bid",
+    "startingBid": "Starting Bid"
+  },
+  "Chat": {
+    "placeholder": "Ask me about this item...",
+    "send": "Send",
+    "thinking": "Thinking...",
+    "error": "Sorry, I couldn't process that request"
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try Again",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  }
+}

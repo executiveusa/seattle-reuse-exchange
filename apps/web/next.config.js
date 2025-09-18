@@ -5,6 +5,9 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
   },
+  env: {
+    _next_intl_trailing_slash: 'false',
+  },
   images: {
     remotePatterns: [
       {

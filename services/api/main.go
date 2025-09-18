@@ -4,9 +4,6 @@ import (
 	"context"
 	"log"
 
-	"encore.dev"
-	"encore.dev/middleware"
-
 	// Import all services
 	_ "seattlereuse.exchange/api/users"
 	_ "seattlereuse.exchange/api/catalog"
@@ -17,24 +14,12 @@ import (
 	_ "seattlereuse.exchange/api/notifications"
 	_ "seattlereuse.exchange/api/webhooks"
 	_ "seattlereuse.exchange/api/reports"
+	_ "seattlereuse.exchange/api/email"
 )
 
 func main() {
-	// Set up global middleware
-	encore.Middleware(
-		middleware.CORS(&middleware.CORSConfig{
-			AllowedOrigins: []string{"http://localhost:3000", "https://*.vercel.app"},
-			AllowedMethods: []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
-			AllowedHeaders: []string{"*"},
-		}),
-		middleware.LogRequests(),
-		middleware.RateLimit(&middleware.RateLimitConfig{
-			Rate:   100,
-			Burst:  200,
-			Window: "1m",
-		}),
-	)
-
+	// TODO: Set up global middleware when Encore middleware API is available
+	// For now, basic application startup
 	log.Println("🌱 Seattle Reuse Exchange API starting...")
 }
 

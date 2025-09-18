@@ -35,7 +35,7 @@ const (
 	StatusSettled   AuctionStatus = "settled"
 )
 
-var db = sqldb.Named("main")
+var db = sqldb.Named("seattle_reuse")
 
 //encore:api public method=POST path=/v1/auctions
 func CreateAuction(ctx context.Context, req *CreateAuctionRequest) (*Auction, error) {
@@ -187,11 +187,11 @@ type AuctionDetailResponse struct {
 }
 
 type GetAuctionsRequest struct {
-	Status     *string `query:"status"`
-	Category   *string `query:"category"`
-	EndingSoon *bool   `query:"ending_soon"`
-	Page       *int    `query:"page"`
-	Limit      *int    `query:"limit"`
+	Status     string `query:"status"`
+	Category   string `query:"category"`
+	EndingSoon bool   `query:"ending_soon"`
+	Page       int    `query:"page"`
+	Limit      int    `query:"limit"`
 }
 
 type GetAuctionsResponse struct {

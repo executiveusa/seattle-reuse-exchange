@@ -103,3 +103,7 @@ playwright/.cache/
 # AI Chat Integration
 # Keep these for development
 !apps/web/src/lib/ai-chat-helpers.ts
+encore.gen.go
+encore.gen.cue
+/.encore
+/encore.gen

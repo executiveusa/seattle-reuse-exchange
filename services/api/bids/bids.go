@@ -19,7 +19,7 @@ type Bid struct {
 	IsWinning bool      `json:"is_winning"`
 }
 
-var db = sqldb.Named("main")
+var db = sqldb.Named("seattle_reuse")
 
 //encore:api public method=POST path=/v1/auctions/:auctionID/bids
 func PlaceBid(ctx context.Context, auctionID string, req *PlaceBidRequest) (*PlaceBidResponse, error) {
@@ -159,8 +159,8 @@ type PlaceBidResponse struct {
 }
 
 type GetBidsRequest struct {
-	Page  *int `query:"page"`
-	Limit *int `query:"limit"`
+	Page  int `query:"page"`
+	Limit int `query:"limit"`
 }
 
 type GetBidsResponse struct {
@@ -169,9 +169,9 @@ type GetBidsResponse struct {
 }
 
 type GetUserBidsRequest struct {
-	Status *string `query:"status"` // "active", "won", "lost"
-	Page   *int    `query:"page"`
-	Limit  *int    `query:"limit"`
+	Status string `query:"status"` // "active", "won", "lost"
+	Page   int    `query:"page"`
+	Limit  int    `query:"limit"`
 }
 
 type GetUserBidsResponse struct {
