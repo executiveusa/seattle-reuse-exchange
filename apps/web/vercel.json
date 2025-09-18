@@ -13,8 +13,7 @@
       }
     }
   ],
-  "buildCommand": "cd ../.. && pnpm install && cd apps/web && pnpm build",
-  "installCommand": "cd ../.. && pnpm install",
-  "outputDirectory": ".next",
-  "packageManager": "pnpm"
+  "buildCommand": "cd ../.. && npx pnpm install --store=node_modules/.pnpm-store && cd apps/web && npx pnpm build",
+  "installCommand": "cd ../.. && npx pnpm install --store=node_modules/.pnpm-store",
+  "outputDirectory": ".next"
 }
