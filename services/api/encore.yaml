@@ -4,11 +4,6 @@ global:
   experiments:
     - "encore.experimental.namespace_packages"
 
-database:
-  seattle_reuse:
-    # Encore will provision PostgreSQL database automatically
-    migrations: "./migrations"
-
 secrets:
   - STRIPE_SECRET_KEY
   - RESEND_API_KEY  

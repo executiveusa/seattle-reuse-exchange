@@ -8,14 +8,6 @@ import (
 
 // AI-CHAT: Database instance automatically provisioned by Encore
 // This will create a PostgreSQL database with migrations applied
-// AI-CHAT: Database instance automatically provisioned by Encore
-// This will create a PostgreSQL database with migrations applied
-// AI-CHAT: Database instance automatically provisioned by Encore
-// This will create a PostgreSQL database with migrations applied
-// AI-CHAT: Database instance automatically provisioned by Encore
-// This will create a PostgreSQL database with migrations applied
-// AI-CHAT: Database instance automatically provisioned by Encore
-// This will create a PostgreSQL database with migrations applied
 var DB = sqldb.NewDatabase("seattle_reuse", sqldb.DatabaseConfig{
 	Migrations: "./migrations",
 })
