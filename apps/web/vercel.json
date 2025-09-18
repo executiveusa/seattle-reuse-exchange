@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next",
+      "config": {
+        "includeFiles": [
+          "next.config.js",
+          ".env.local",
+          ".env"
+        ]
+      }
+    }
+  ],
+  "buildCommand": "cd ../.. && pnpm install && cd apps/web && pnpm build",
+  "installCommand": "cd ../.. && pnpm install",
+  "outputDirectory": ".next"
+}
