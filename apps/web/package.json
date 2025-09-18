@@ -44,7 +44,6 @@
   "devDependencies": {
     "eslint-config-next": "14.0.4",
     "@playwright/test": "^1.40.1",
-    "@seattle-reuse/config": "workspace:*",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.1.2",
     "@types/node": "^20.10.5",

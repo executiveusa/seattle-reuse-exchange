@@ -13,7 +13,7 @@
       }
     }
   ],
-  "buildCommand": "cd ../.. && npx pnpm install --store=node_modules/.pnpm-store && cd apps/web && npx pnpm build",
+  "buildCommand": "cd ../.. && npx pnpm install --store=node_modules/.pnpm-store && npx pnpm build --filter @seattle-reuse/web",
   "installCommand": "cd ../.. && npx pnpm install --store=node_modules/.pnpm-store",
   "outputDirectory": ".next"
 }
