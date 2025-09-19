@@ -1,0 +1,11 @@
+{
+  "build": {
+    "dockerfilePath": "Dockerfile"
+  },
+  "deploy": {
+    "startCommand": "pnpm start --filter @seattle-reuse/web",
+    "port": 3000,
+    "healthcheckPath": "/",
+    "healthcheckTimeout": 300
+  }
+}

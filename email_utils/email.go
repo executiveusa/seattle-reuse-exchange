@@ -1,16 +1,4 @@
-package email
-
-import (
-	"context"
-	"encoding/json"
-	"fmt"
-	"bytes"
-	"net/http"
-
-	"github.com/google/uuid"
-)
-
-// AI-CHAT: Email configuration loaded from environment  
+// AI-CHAT: Email configuration loaded from environment
 // TODO: Replace with proper Encore secrets management
 var secrets struct {
 	ResendAPIKey string
@@ -25,12 +13,12 @@ func init() {
 
 // AI-CHAT: Email request structures matching Resend API format
 type EmailRequest struct {
-	From     string   `json:"from"`
-	To       []string `json:"to"`
-	Subject  string   `json:"subject"`
-	HTML     string   `json:"html,omitempty"`
-	Text     string   `json:"text,omitempty"`
-	ReplyTo  string   `json:"reply_to,omitempty"`
+	From    string   `json:"from"`
+	To      []string `json:"to"`
+	Subject string   `json:"subject"`
+	HTML    string   `json:"html,omitempty"`
+	Text    string   `json:"text,omitempty"`
+	ReplyTo string   `json:"reply_to,omitempty"`
 }
 
 type EmailResponse struct {
@@ -40,7 +28,7 @@ type EmailResponse struct {
 }
 
 // AI-CHAT: Send single email via Resend API
-//encore:api public method=POST path=/email/send
+//encore:api public method=POST path=/email-utils/send
 func SendEmail(ctx context.Context, req *EmailRequest) (*EmailResponse, error) {
 	// AI-CHAT: Validate email request
 	if err := validateEmailRequest(req); err != nil {
