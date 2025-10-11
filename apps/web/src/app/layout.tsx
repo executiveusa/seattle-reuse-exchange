@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter, Space_Grotesk } from 'next/font/google';
+// Temporarily disabled Google Fonts due to network restrictions
+// import { Inter, Space_Grotesk } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { SessionProvider } from '@/components/providers/session-provider';
@@ -9,50 +10,55 @@ import { Toaster } from '@/components/ui/toaster';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 
-const inter = Inter({ 
-  subsets: ['latin'],
-  variable: '--font-inter'
-});
+// Using system fonts as fallback
+// const inter = Inter({ 
+//   subsets: ['latin'],
+//   variable: '--font-inter'
+// });
 
-const spaceGrotesk = Space_Grotesk({ 
-  subsets: ['latin'],
-  variable: '--font-space-grotesk'
-});
+// const spaceGrotesk = Space_Grotesk({ 
+//   subsets: ['latin'],
+//   variable: '--font-space-grotesk'
+// });
 
 export const metadata: Metadata = {
   title: {
-    default: 'Seattle Reuse Exchange',
-    template: '%s | Seattle Reuse Exchange',
+    default: 'The Last Collection',
+    template: '%s | The Last Collection',
   },
-  description: 'Auctions that keep good stuff in use. Bid on rescued office furniture & gear while funding local reuse.',
+  description: 'Auctions and donations that fund New World Kids\' non-profit work. Furniture, electronics, sports cards, comics, and art.',
   keywords: [
     'auction',
     'reuse',
     'recycling',
     'furniture',
-    'seattle',
+    'electronics',
+    'sports cards',
+    'comics',
+    'art',
+    'donations',
     'nonprofit',
     'sustainability',
     'office equipment'
   ],
   authors: [
     {
-      name: 'Seattle Reuse Exchange',
+      name: 'The Last Collection',
     },
   ],
-  creator: 'Seattle Reuse Exchange',
+  creator: 'The Last Collection',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://seattlereuse.exchange',
-    title: 'Seattle Reuse Exchange',
-    description: 'Auctions that keep good stuff in use',
-    siteName: 'Seattle Reuse Exchange',
+    title: 'The Last Collection',
+    description: 'Auctions and donations that fund New World Kids\' non-profit work',
+    siteName: 'The Last Collection',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Seattle Reuse Exchange',
-    description: 'Auctions that keep good stuff in use',
+    title: 'The Last Collection',
+    description: 'Auctions and donations that fund New World Kids\' non-profit work',
     creator: '@seattlereuse',
   },
   icons: {
@@ -74,7 +80,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
+      <body className="font-sans antialiased">
         <NextIntlClientProvider messages={messages}>
           <SessionProvider>
             <ThemeProvider
