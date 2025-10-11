@@ -1,0 +1,49 @@
+{
+  "Navigation": {
+    "home": "Inicio",
+    "auctions": "Subastas",
+    "donate": "Donar",
+    "dashboard": "Panel",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "profile": "Perfil"
+  },
+  "HomePage": {
+    "title": "The Last Collection",
+    "subtitle": "Subastas y donaciones que financian el trabajo sin fines de lucro de New World Kids",
+    "heroTitle": "The Last Collection",
+    "heroSubtitle": "Muebles, electrónicos, tarjetas deportivas, cómics y arte que marcan la diferencia",
+    "ctaText": "Comenzar a ofertar",
+    "featuresTitle": "Cómo funciona",
+    "impactTitle": "Tu impacto"
+  },
+  "Auctions": {
+    "title": "Subastas activas",
+    "noAuctions": "No hay subastas activas en este momento",
+    "bidNow": "Ofertar ahora",
+    "timeLeft": "Tiempo restante",
+    "currentBid": "Oferta actual",
+    "startingBid": "Oferta inicial"
+  },
+  "Chat": {
+    "placeholder": "Pregúntame sobre este artículo...",
+    "send": "Enviar",
+    "thinking": "Pensando...",
+    "error": "Lo siento, no pude procesar esa solicitud"
+  },
+  "Common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "retry": "Intentar de nuevo",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "back": "Volver",
+    "next": "Siguiente",
+    "previous": "Anterior"
+  }
+}

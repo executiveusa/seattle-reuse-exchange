@@ -2,6 +2,8 @@
   "Navigation": {
     "home": "Home",
     "auctions": "Auctions",
+    "donate": "Donate",
+    "dashboard": "Dashboard",
     "about": "About",
     "contact": "Contact",
     "login": "Login",
@@ -9,10 +11,10 @@
     "profile": "Profile"
   },
   "HomePage": {
-    "title": "Seattle Reuse Exchange",
-    "subtitle": "Keeping office furniture out of landfills while funding nonprofit work",
-    "heroTitle": "Transform Your Office Waste Into Community Impact",
-    "heroSubtitle": "Join Seattle's premier marketplace for office furniture that creates lasting environmental and social change",
+    "title": "The Last Collection",
+    "subtitle": "Auctions and donations that fund New World Kids' non-profit work",
+    "heroTitle": "The Last Collection",
+    "heroSubtitle": "Furniture, electronics, sports cards, comics, and art that make a difference",
     "ctaText": "Start Bidding",
     "featuresTitle": "How It Works",
     "impactTitle": "Your Impact"

@@ -12,7 +12,7 @@ export function Header() {
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <span className="hidden font-bold sm:inline-block">
-              Seattle Reuse Exchange
+              The Last Collection
             </span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
@@ -27,6 +27,18 @@ export function Header() {
               className="transition-colors hover:text-foreground/80 text-foreground/60"
             >
               {t('auctions')}
+            </Link>
+            <Link
+              href="/donate"
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
+            >
+              {t('donate')}
+            </Link>
+            <Link
+              href="/dashboard"
+              className="transition-colors hover:text-foreground/80 text-foreground/60"
+            >
+              {t('dashboard')}
             </Link>
             <Link
               href="/about"

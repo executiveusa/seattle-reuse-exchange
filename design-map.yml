@@ -1,0 +1,71 @@
+###############################################################################
+# Design Map for The Last Collection
+# Theme and layout variant configuration
+###############################################################################
+
+marketing_theme: "liquid-glass"
+dashboard_theme: "glass-panels"
+
+density:
+  marketing: "airy"      # Spacious layouts for marketing pages
+  dashboard: "compact"   # Dense information display for dashboards
+
+components:
+  hero: "full-bleed-glass"
+  navbar: "elevated"
+  card: "glass"
+  table: "dense"
+  modal: "glass"
+
+pages:
+  home:
+    theme: "liquid-glass"
+    density: "airy"
+    hero_style: "two-column-with-image"
+    
+  auctions:
+    theme: "liquid-glass"
+    density: "comfortable"
+    layout: "grid"
+    
+  donate:
+    theme: "liquid-glass"
+    density: "airy"
+    layout: "two-column"
+    
+  admin:
+    theme: "glass-panels"
+    density: "compact"
+    layout: "sidebar-dashboard"
+    sidebar_width: "280px"
+    
+  dashboard:
+    theme: "glass-panels"
+    density: "comfortable"
+    layout: "card-grid"
+
+typography:
+  headings: "Qanelas Soft, Inter, system-ui"
+  body: "Open Sans, Inter, system-ui"
+  mono: "monospace"
+
+spacing:
+  marketing: "generous"    # 1.5x base spacing
+  dashboard: "standard"    # 1x base spacing
+  compact: "tight"         # 0.75x base spacing
+
+responsive:
+  breakpoints:
+    mobile: "640px"
+    tablet: "768px"
+    desktop: "1024px"
+    wide: "1280px"
+  
+  adjustments:
+    mobile:
+      density: "compact"
+      hero_style: "single-column"
+    tablet:
+      density: "comfortable"
+    desktop:
+      density: "as-specified"

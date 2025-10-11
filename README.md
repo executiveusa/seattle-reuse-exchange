@@ -1,19 +1,33 @@
-# Seattle Reuse Exchange
+# The Last Collection
 
-A modern auction platform keeping usable items out of landfills while funding nonprofit work.
+> **Formerly:** Seattle Reuse Exchange
+
+A production-ready bilingual auction and donation platform for furniture, electronics, sports cards, comics, and art. Every purchase funds New World Kids' non-profit work.
 
 ## 🌟 Mission
 
-Keep good stuff out of the dump! Bid on rescued office furniture & gear. Every purchase funds local reuse across Seattle.
+Auctions and donations that make a difference! Support New World Kids by bidding on quality items or donating goods. Available in English and Spanish.
+
+## ✨ New Features
+
+- 🎨 **Liquid Glass Design System** - Modern, accessible design with light/dark themes
+- 🌐 **Bilingual Platform** - Full English and Spanish support
+- 📦 **Expanded Categories** - Furniture, electronics, sports cards, comics, and art
+- 🏆 **Sponsor Recognition** - Showcase supporters and contributors
+- 💰 **Tax Receipts** - 501(c)(3) donation documentation
+- ⚡ **Real-time Ready** - WebSocket infrastructure for live bidding
+- 🔒 **Enhanced Security** - Comprehensive HTTP security headers
 
 ## 🏗️ Architecture
 
 - **Frontend**: Next.js 14+ App Router with TypeScript, Tailwind CSS, shadcn/ui
-- **Backend**: Encore (Go) services with Postgres
-- **Payments**: Stripe Checkout integration
-- **Storage**: S3/R2 for images
+- **Design System**: Liquid Glass with glass morphism effects
+- **i18n**: next-intl for English/Spanish localization
+- **Backend**: Encore (Go) microservices with PostgreSQL
+- **Payments**: Stripe Checkout integration (planned)
+- **Storage**: S3/R2 for images and documents
 - **Search**: Meilisearch for instant product search
-- **Real-time**: WebSocket/SSE for live bidding
+- **Real-time**: WebSocket client with auto-reconnection
 
 ## 🚀 Quick Start
 
@@ -128,6 +142,25 @@ pnpm test:load
 - **Backend**: Encore Cloud (automatic deployment)
 - **Database**: Postgres (Encore provisioned)
 
+## 📚 Documentation
+
+- **[UPGRADE_PLAN.md](./UPGRADE_PLAN.md)** - Comprehensive upgrade documentation
+- **[IMPLEMENTATION_SUMMARY.md](./IMPLEMENTATION_SUMMARY.md)** - Technical summary of changes
+- **[reports/upgrade.json](./reports/upgrade.json)** - Spec-Kit format upgrade report
+- **[design-map.yml](./design-map.yml)** - Theme and layout configuration
+- **[ENCORE_MIGRATION.md](./ENCORE_MIGRATION.md)** - Encore Cloud migration guide
+
+## 🎨 Design System
+
+The Last Collection uses the **Liquid Glass** design system:
+
+- **Primary**: #00B39F (Keppel)
+- **Secondary**: #EBC017 (Saffron)
+- **Neutral**: #3C494E (Charcoal)
+- **Accent**: #7AD8CC
+- **Glass Effects**: Backdrop blur with transparency
+- **Themes**: Light and dark mode support
+
 ## 📄 License
 
 Apache-2.0 License - see LICENSE file for details.
@@ -137,5 +170,7 @@ Apache-2.0 License - see LICENSE file for details.
 We welcome contributions! Please see our contributing guidelines and code of conduct.
 
 ---
+
+**Built with ❤️ by the New World Kids community**
 
 *Keeping good stuff in use, one auction at a time.* 🌱
