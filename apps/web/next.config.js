@@ -18,7 +18,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.r2.dev',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
     ],
+    formats: ['image/avif', 'image/webp'],
   },
   async redirects() {
     return [
