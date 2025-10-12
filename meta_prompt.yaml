@@ -663,7 +663,6 @@ issues_and_followups:
   - Fix the following error: unexpected status code 500 <tab button space goes here>
   - Use Shift + Return for a new line
 feedback:
-  rating: "Unclear prompt (2/10)"
   summary:
     - Tighten security and a11y to clear enterprise and sponsor hurdles.
     - Layer recurring revenue (subs/white-label) to stabilize beyond take rate.
