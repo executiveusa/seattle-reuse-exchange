@@ -1,87 +1,676 @@
-# meta_prompt: zero_landfill_auctions_taskmaster_v4
-meta:
-  title: "Seattle Reuse Exchange"
-  mission: "Keep usable items out of landfills by auctioning and reselling them to fund our nonprofit work."
-  brand_values: ["Loyalty", "Honor", "Truth", "Respect"]
-  org_type: "Social Purpose Company (for-profit) — Seattle, WA"
-  authoring_target: "leap.new codegen pipeline"
-  output_mode: "generate-complete-monorepo"
-  deployment_targets:
-    frontend: "Vercel (Next.js App Router)"
-    backend: "Encore Cloud (Go)"
-  quality_gate_min_score: 8.8
-  review_mode: "taskmaster_auto_iterate_until_pass"
-  license: "Apache-2.0 (project), see NOTICE for third-party"
+###############################################################################
+# Ethical Qoder Upgrade Prompt for "The Last Collection"
+#
+# Goal: Production-grade, ethical, profitable, and compliant upgrade of
+#       "seattle-reuse-exchange" → "The Last Collection" as a SaaS marketplace.
+# Scope: Trust & Safety, Compliance, Monetization, Accessibility, Security,
+#        Sustainability, and Robust Engineering.
+# Output: Canvas-only YAML for Codex/Qoder automation.
+###############################################################################
 
-spec_kit:
-  required_outputs:
-    - name: monorepo
-      type: directory
-      must_include:
-        - apps/web # Next.js 14+ App Router, TS, Tailwind, shadcn/ui
-        - services/api # Encore (Go) services, endpoints, cron, auth
-        - packages/ui # shared React UI + tokens
-        - packages/config # eslint, tsconfig, tailwind, prettier, vitest
-        - infra # DB migrations, seed scripts, Meilisearch indexers
-        - .github/workflows # CI (lint/typecheck/test/build/deploy)
-        - README.md
-        - docs/
-    - name: seeds
-      type: directory
-      must_include: [example_items.json, example_users.json, example_images/]
-    - name: environment_files
-      type: files
-      must_include: [".env.example", "apps/web/.env.local.example", "services/api/.env.encore.example"]
-    - name: acceptance_tests
-      type: directory
-      must_include: ["playwright/", "api/*.http", "load/*.k6.js"]
+project:
+  name: "The Last Collection"
+  old_name: "Seattle Reuse Exchange"
+  repository: "seattle-reuse-exchange-main"
+  branch: "feat/upgrade-the-last-collection"
+  description: |
+    Ethical circular-economy marketplace for resale and donations of furniture,
+    electronics, trading cards, comics, and art. Includes real-time auctions,
+    bilingual UI (EN/ES), dark/light themes, admin, sponsors, compliant
+    donation receipts, and measurable climate impact.
 
-  formatting_rules:
-    - "All config files are valid and runnable as committed."
-    - "TypeScript passes with 'strict: true' and '--noEmit'."
-    - "Go builds with 'encore run' and 'go build ./...'."
-
-  success_criteria:
-    - "pnpm i && pnpm -w build completes without errors."
-    - "encore run starts API locally with seeded DB."
-    - "E2E passes: create item → open auction → live bids (anti-sniping) → winner → Stripe checkout → receipt → pickup scheduling."
+links:
+  offerup: "https://offerup.co/profile/newworldkids"
+  facebook: "https://www.facebook.com/"
 
 branding:
-  name: "Seattle Reuse Exchange"
-  tagline: "Auctions that keep good stuff in use."
-  colors:
-    evergreen: "#1F6F54" # primary
-    puget_blue: "#0F4C81" # secondary
-    salmon: "#F36E5F" # accent/CTA
-    cedar: "#5A3E36" # deep support
-    fog_gray: "#F3F4F6" # surfaces
-    charcoal: "#111827" # text/contrast
-    success: "#10B981"
+  palette:
+    primary: "#00B39F"
+    secondary: "#EBC017"
+    neutral: "#3C494E"
+    surface: "#0F1314"
+    surface_alt: "#FFFFFF"
+    accent: "#7AD8CC"
+    danger: "#D92D20"
+    success: "#22C55E"
     warning: "#F59E0B"
-    error: "#EF4444"
+  typography:
+    headings: "Qanelas Soft, Inter, system-ui, -apple-system, Segoe UI"
+    body: "Open Sans, Inter, system-ui, -apple-system, Segoe UI"
+    base_size_px: 16
+    scale: 1.2
+  themes: { light: true, dark: true }
+  tokens:
+    radius_px: 16
+    blur_px: 12
+    shadow:
+      sm: "0 1px 2px rgba(0,0,0,.08)"
+      md: "0 8px 24px rgba(0,0,0,.12)"
+      lg: "0 20px 50px rgba(0,0,0,.18)"
+    spacing_scale_px: [4, 8, 12, 16, 20, 24, 32, 40, 48]
+    motion:
+      ease: "cubic-bezier(0.2, 0.8, 0.2, 1)"
+      duration_ms: 200
 
-frontend:
-  framework: "Next.js App Router, React 18, TypeScript strict"
-  styling: ["TailwindCSS", "shadcn/ui", "lucide-react", "framer-motion"]
-  auth: "next-auth (magic link + Google OAuth); roles: admin, manager, volunteer, bidder"
-  payments: ["Stripe (Checkout)"]
-  upload: "S3/R2 via signed URLs; next/image; drag-and-drop"
-  realtime: "SSE or WebSocket client bound to Encore event stream for live bids"
-  search: "Meilisearch instant search & typo tolerance on /browse"
+runtime_env:
+  node: ">=20.0.0"
+  package_manager: "pnpm"
+  encore_version: "latest"
+  next_version: ">=14.2.0"
 
-backend:
-  language: "Go 1.22+"
-  framework: "Encore"
-  db: "Postgres (Encore provisioned)"
-  storage: "S3/R2 signed uploads"
-  email: "Resend"
-  sms: "Twilio (enabled)"
-  search: "Meilisearch (enabled)"
+# Security tightened; CSP migration to nonces.
+security_headers:
+  csp_relaxed: "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' https: wss:; frame-ancestors 'self'; object-src 'none'; base-uri 'self'"
+  csp_strict_template: "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'nonce-{{nonce}}' 'strict-dynamic'; style-src 'self' 'nonce-{{nonce}}'; connect-src 'self' https: wss:; frame-ancestors 'self'; object-src 'none'; base-uri 'self'"
+  frame_options: "SAMEORIGIN"
+  referrer_policy: "strict-origin-when-cross-origin"
+  permissions_policy: "geolocation=(), microphone=(), camera=()"
 
-architecture:
-  style: "Monorepo (pnpm + Turborepo)"
-  diagram_text:
-    - "apps/web (Next.js, TS, RSC) ⇄ services/api (Encore Go) ⇄ Postgres"
-    - "apps/web → Stripe (client intents)"
-    - "services/api → Stripe (webhooks), Resend (email), Twilio (SMS)"
-    - "S3/R2 for images; Meilisearch enabled for catalog search"
+feature_flags:
+  realtime_bidding: true
+  admin_dashboard: true
+  bilingual_ui: true
+  dark_mode: true
+  sponsors_bar: true
+  donations_flow: true
+  content_moderation: true
+  counterfeit_detection: true
+  fraud_risk_scoring: true
+
+###############################################################################
+# ETHICS, COMPLIANCE, AND MARKETPLACE POLICY
+###############################################################################
+ethics:
+  principles:
+    - "Human-first. Safety over profit."
+    - "Transparency: clear fees, clear rules."
+    - "Privacy by default and data minimization."
+    - "Accessibility and localization as core features."
+    - "Environmental impact measured and reported."
+  prohibited_content:
+    - "Weapons, ammunition, explosives"
+    - "Controlled substances, illicit drugs, vaping"
+    - "Adult sexual content or services"
+    - "Hate, harassment, extremism"
+    - "Counterfeit or stolen goods"
+    - "Hazardous materials"
+    - "Medical devices requiring prescriptions"
+  fairness_and_bidding:
+    anti_sniping_buffer_sec: 60               # extend auction end if last-minute bid
+    max_bid_increment_pct: 50                 # guard against price spikes
+    cooling_off_cancel_minutes: 10            # allow quick accidental-bid cancel
+  transparency:
+    show_fees_breakdown: true
+    show_donation_routing: true
+    sponsored_labeling: "Sponsored"
+
+compliance:
+  privacy:
+    frameworks: ["GDPR", "CCPA/CPRA"]
+    dpia_required: true
+    data_minimization_map: true
+    cookie_banner: "opt-in EU, opt-out US"
+    do_not_sell_or_share_link: true
+  payments:
+    provider: "stripe_optional"
+    pci_mode: "SAQ A"                         # no card data stored or processed
+    tax_collection: "none_initial"            # informational receipts only
+  tax_receipts:
+    disclaimer: "Informational only, not tax advice"
+    fields: ["donor_name", "donation_date", "org_name", "ein", "description_no_value", "statement_no_goods_services"]
+  ip_and_rights:
+    dmca_pages: true
+    takedown_sla_hours: 48
+    repeat_infringer_policy: true
+  child_safety:
+    min_age: 13
+    under_18_safeguards: ["no adult categories", "no direct messaging with adults"]
+
+marketplace_policies:
+  returns_refunds:
+    donations: "n/a"
+    auctions: "final_sale"
+    buy_now: "seller_discretion"
+    dispute_resolution: "admin_mediation_with_evidence"
+  seller_verification:
+    kyc_light: true
+    high_risk_manual_review: true
+  prohibited_items_page: "/prohibited-items"
+
+ai_use_policy:
+  generation:
+    listing_assistant: true
+    style: "factual, non-deceptive, no exaggerated claims"
+    hallucination_guardrails: true
+  moderation_pipeline:
+    text: ["keyword_filter", "ml_toxicity", "human_review_on_flags"]
+    image: ["nudity_weapons_checker", "logo/counterfeit hints", "human_review_on_flags"]
+  privacy:
+    train_on_user_content: "opt-in-only"
+    redaction:
+      pii: ["email", "phone", "address"]
+      images: ["faces_blur_optional"]
+
+sustainability:
+  metrics:
+    co2_kg_avoided_estimator: true
+    landfill_diversion_kg: true
+    reuse_counter_public: true
+
+monetization:
+  take_rate_pct: 8                            # marketplace fee on successful sale
+  buyer_fee_pct: 0                            # start low, test later
+  seller_subscriptions:
+    - name: "Starter"
+      price_usd: 0
+      perks: ["5 active listings", "basic analytics"]
+    - name: "Pro"
+      price_usd: 19
+      perks: ["50 active listings", "priority placement", "bulk upload"]
+    - name: "Sponsor"
+      price_usd: 199
+      perks: ["homepage logo", "category features"]
+  services:
+    pickups_fee_flat_usd: 25                  # optional pickup logistics
+    white_label_monthly_usd: 499              # for partner nonprofits
+  experiments:
+    - name: "Buy Now vs Auction"
+      metric: "gross_margin_dollars"
+      duration_days: 21
+    - name: "Pro plan trial"
+      metric: "paid_conversion_28d"
+      duration_days: 28
+
+observability_security:
+  owasp_asvs_level: 2
+  rate_limiting:
+    public_api_rps: 10
+    auth_rps: 5
+  audit_logging:
+    events: ["login", "role_change", "payout", "listing_removed", "dmca_action"]
+    pii_minimized: true
+  dependency_pinning: true
+  supply_chain:
+    slsa_level_target: 2
+
+###############################################################################
+# A11Y, PERFORMANCE, I18N
+###############################################################################
+a11y_performance:
+  wcag_target: "AA"
+  lighthouse_targets: { performance: 90, accessibility: 95, best_practices: 95, seo: 95 }
+
+i18n:
+  default_locale: "en"
+  locales: ["en", "es"]
+  lib: "next-intl"
+
+###############################################################################
+# BMAD: Baseline → Model → Act → Deliver
+###############################################################################
+stages:
+  baseline:
+    - id: inventory
+      task: "Inventory existing codebase"
+      actions:
+        - scan_repository:
+            include:
+              - "apps/web/src/**"
+              - "services/api/**"
+              - "infra/migrations/**"
+              - "acceptance_tests/**"
+              - "apps/web/messages/**"
+              - "vercel.json"
+              - "turbo.json"
+              - "pnpm-workspace.yaml"
+              - "packages/**"
+        - detect_frameworks: ["nextjs_app_router", "tailwind", "encore_go"]
+        - detect_tests: ["playwright", "vitest", "k6"]
+        - detect_i18n: ["messages/en.json"]
+        - verify_tailwind_config: true
+        - verify_image_assets: true
+      outputs:
+        - file: "UPGRADE_PLAN.md"
+          content: "auto_generate_summary_with_risks_and_owners"
+
+    - id: legal_and_policy_bootstrap
+      task: "Add legal, privacy, policy pages and configs"
+      actions:
+        - create_pages:
+            routes: ["/privacy", "/terms", "/dmca", "/prohibited-items"]
+            components_dir: "apps/web/src/app"
+        - add_policy_md:
+            files:
+              - "POLICY_PRIVACY.md"
+              - "POLICY_TERMS.md"
+              - "POLICY_DMCA.md"
+              - "POLICY_PROHIBITED_ITEMS.md"
+        - cookie_banner: true
+        - do_not_sell_or_share_link: true
+
+    - id: prep-branch
+      task: "Create upgrade branch and pin tooling"
+      actions:
+        - git_create_branch: "feat/upgrade-the-last-collection"
+        - set_engines: { node: ">=20" }
+        - set_package_manager: "pnpm"
+        - install: true
+        - ci_smoke_build: true
+
+  model:
+    - id: tokens
+      task: "Define Liquid Glass tokens and themes"
+      actions:
+        - create_file: "apps/web/src/styles/tokens.css"
+          template: "liquid_glass_tokens"
+          data: { palette: "@branding.palette", tokens: "@branding.tokens", modes: "@branding.themes" }
+        - wire_global_tokens:
+            entry_css: "apps/web/src/app/globals.css"
+            import_path: "@/styles/tokens.css"
+
+    - id: shadcn_catalog
+      task: "Create shadcn/Radix component catalog"
+      actions:
+        - add_components:
+            target: "apps/web/src/components/ui"
+            list: [button, input, textarea, select, checkbox, dialog, dropdown-menu, tabs, table, toast, card, form, tooltip, sheet]
+        - enforce_accessibility_props: true
+        - create_catalog_json: "docs/component-catalog.json"
+
+    - id: design_map
+      task: "Select theme layout variants"
+      actions:
+        - create_file: "design-map.yml"
+          content: |
+            marketing_theme: "liquid-glass"
+            dashboard_theme: "glass-panels"
+            density:
+              marketing: "airy"
+              dashboard: "compact"
+            components:
+              hero: "full-bleed-glass"
+              navbar: "elevated"
+              card: "glass"
+              table: "dense"
+              modal: "glass"
+
+    - id: risk_controls_model
+      task: "Model T&S, moderation, and fraud controls"
+      actions:
+        - risk_matrix_json: "docs/risk-matrix.json"
+        - policy_to_runtime_mappings: "docs/policy-runtime-map.md"
+        - event_schemas:
+            file: "docs/events.json"
+            events: ["bid_placed", "auction_created", "donation_submitted", "sponsor_logo_added", "language_changed", "listing_flagged", "dmca_submitted", "payout_processed"]
+
+  act:
+    - id: rename_app
+      task: "Rename application and update metadata"
+      actions:
+        - replace_text:
+            paths: ["apps/web/src/**", "README.md"]
+            find: "Seattle Reuse Exchange"
+            replace: "The Last Collection"
+        - update_head_metadata:
+            app_dir: "apps/web/src/app"
+            title: "The Last Collection"
+            description: "Auctions and donations that fund New World Kids’ work."
+        - setup_redirections: { vercel: true }
+
+    - id: hero_fix
+      task: "Fix hero image path and asset handling"
+      actions:
+        - ensure_next_image_config:
+            file: "apps/web/next.config.js"
+            domains: ["images.unsplash.com"]
+            formats: ["image/avif", "image/webp"]
+        - refactor_hero:
+            file: "apps/web/src/components/sections/hero.tsx"
+            image_component: "next/image"
+            placeholder: "blur"
+            fallback_url: "https://images.unsplash.com/photo-1512446733611-9099a758e0f9"
+            class_overrides: ["glass", "rounded-2xl", "shadow-lg"]
+        - fix_import_paths: true
+
+    - id: asset_pipeline
+      task: "Add missing Vite/Next asset configuration"
+      actions:
+        - verify_next_asset_loader: true
+        - remove_dead_assets: true
+        - convert_static_imgs_to_public:
+            from: "apps/web/src/assets/**/*"
+            to: "apps/web/public/assets"
+
+    - id: realtime_bidding
+      task: "Implement real-time bidding via WebSocket"
+      actions:
+        - backend_ws:
+            option: "encore_ws"
+            path: "services/api/bids/realtime.go"
+            events: ["bid:new", "bid:update", "auction:close"]
+            auth: "session_or_key"
+            idempotency: true
+        - frontend_ws_client:
+            path: "apps/web/src/lib/realtime.ts"
+            reconnect: true
+            exponential_backoff: true
+        - integrate_ui:
+            auction_page: "apps/web/src/app/auctions/page.tsx"
+            live_badge: true
+            optimistic_updates: true
+        - tests:
+            playwright: ["acceptance_tests/playwright/auction-live.spec.ts"]
+
+    - id: admin_dashboard
+      task: "Create admin dashboard"
+      actions:
+        - scaffold_pages:
+            base: "apps/web/src/app/admin"
+            routes: ["overview", "auctions", "bids", "donations", "users", "sponsors", "reports", "flags", "dmca"]
+        - tables_filters_charts: true
+        - role_based_access: { roles: ["admin", "staff", "donor", "bidder"] }
+        - secure_routes: true
+
+    - id: auth_billing_shell
+      task: "Integrate auth and optional billing"
+      actions:
+        - add_nextauth: { providers: ["email", "google", "github"], session_strategy: "jwt" }
+        - stripe_optional: { enabled: false }
+        - orgs_teams_scaffold: true
+        - protected_routes: { paths: ["/dashboard", "/admin"] }
+
+    - id: donations_pages
+      task: "Donation intake and tax receipt info"
+      actions:
+        - add_pages:
+            base: "apps/web/src/app/donate"
+            routes: ["index", "guidelines", "receipt"]
+        - tax_receipt_copy: { compliant_notice: true, download_pdf: true }
+        - intake_form:
+            fields: ["category", "title", "description", "condition", "photos[]", "contact", "pickup_option"]
+            storage: "s3_or_supabase"
+            max_photos: 8
+
+    - id: sponsors_and_thanks
+      task: "Sponsors bar and contributors page"
+      actions:
+        - footer_sponsors_bar: { location: "apps/web/src/components/layout/footer.tsx", slots: 10, logo_upload: true }
+        - thank_you_page: { route: "apps/web/src/app/thanks/page.tsx", searchable_list: true }
+
+    - id: social_links
+      task: "Link OfferUp and Facebook"
+      actions:
+        - add_social_icons:
+            footer: true
+            links: { offerup: "@links.offerup", facebook: "@links.facebook" }
+
+    - id: i18n_enable
+      task: "Enable English/Spanish"
+      actions:
+        - setup_next_intl: { default_locale: "@i18n.default_locale", locales: "@i18n.locales" }
+        - generate_messages: { en: "apps/web/messages/en.json", es: "apps/web/messages/es.json" }
+        - language_toggle: { location: "header" }
+
+    - id: user_dashboard_uploads
+      task: "User dashboard for listings"
+      actions:
+        - pages:
+            base: "apps/web/src/app/dashboard"
+            routes: ["listings", "new", "donations", "profile"]
+        - uploader: { drag_drop: true, preview: true, multi_file: true }
+
+    - id: seo_a11y_perf
+      task: "SEO, accessibility, performance hardening"
+      actions:
+        - semantic_headings: true
+        - aria_labels: true
+        - focus_visible: true
+        - next_image_optimizations: true
+        - route_prefetching: true
+        - add_headers: "@security_headers.csp_relaxed"
+        - sitemap_robots: true
+        - lighthouse_ci: { thresholds: "@a11y_performance.lighthouse_targets" }
+
+    - id: moderation_and_fraud
+      task: "Ship content moderation, counterfeit signals, fraud scoring"
+      actions:
+        - text_filters: ["regex_bad_words", "toxicity_model", "url_blocklist"]
+        - image_checks: ["weapon_nudity_basic", "duplicate_hashing", "logo_ocr_hint"]
+        - listing_flag_flow: { user_visible_reasons: true, appeal_flow: true }
+        - risk_scoring:
+            rules: ["new_seller_high_value", "rapid_bidding_spike", "ip_proxy_use"]
+            actions: ["hold", "manual_review", "reject"]
+
+    - id: csp_migration
+      task: "Migrate CSP from relaxed to strict with nonces"
+      actions:
+        - add_nonce_middleware: true
+        - replace_inline_scripts: true
+        - update_headers_to: "@security_headers.csp_strict_template"
+
+    - id: tests_ci
+      task: "Update tests and CI"
+      actions:
+        - playwright:
+            add:
+              - "acceptance_tests/playwright/auth-flow.spec.ts"
+              - "acceptance_tests/playwright/admin-crud.spec.ts"
+              - "acceptance_tests/playwright/i18n-toggle.spec.ts"
+              - "acceptance_tests/playwright/policy-prohibited-listing.spec.ts"
+              - "acceptance_tests/playwright/dmca-takedown.spec.ts"
+        - vitest: { add_utils_tests: true }
+        - k6: { update: "acceptance_tests/load/auction-load-test.k6.js" }
+        - github_actions_or_vercel: { add_lighthouse: true, add_a11y_job: true, typecheck_build: true }
+
+    - id: env_migrations
+      task: "Environment schema and DB migrations"
+      actions:
+        - create_env_example:
+            file: ".env.example"
+            keys: ["NEXTAUTH_SECRET", "NEXTAUTH_URL", "GO_API_BASE_URL", "WS_URL", "STORAGE_BUCKET", "STORAGE_REGION", "STORAGE_ACCESS_KEY_ID", "STORAGE_SECRET_ACCESS_KEY"]
+        - db_migrations:
+            add: ["infra/migrations/002_donations.up.sql", "infra/migrations/003_sponsors.up.sql", "infra/migrations/004_artworks.up.sql"]
+
+  deliver:
+    - id: upgrade_plan_file
+      task: "Generate UPGRADE_PLAN.md"
+      actions:
+        - synthesize_from_changes: true
+
+    - id: spec_kit_report
+      task: "Produce Spec-Kit upgrade report"
+      actions:
+        - create_file: "reports/upgrade.json"
+          schema: "spec-kit"
+          include: ["decisions", "diffs_summary", "lighthouse_results", "a11y_findings", "risks", "owners"]
+
+    - id: open_pr
+      task: "Open pull request"
+      actions:
+        - git_commit_all: "feat: ethical upgrade to The Last Collection (BMAD + Spec-Kit)"
+        - git_push_branch: "@project.branch"
+        - create_pr:
+            base: "main"
+            head: "@project.branch"
+            title: "Upgrade: The Last Collection — Ethical BMAD + Spec-Kit"
+            body_file: "UPGRADE_PLAN.md"
+
+###############################################################################
+# Repository paths and concrete edits
+###############################################################################
+repository_paths:
+  web_app: "apps/web"
+  encore_api: "services/api"
+  i18n_messages: "apps/web/messages"
+  layouts:
+    header: "apps/web/src/components/layout/header.tsx"
+    footer: "apps/web/src/components/layout/footer.tsx"
+  sections:
+    hero: "apps/web/src/components/sections/hero.tsx"
+    auctions: "apps/web/src/components/sections/featured-auctions.tsx"
+    how_it_works: "apps/web/src/components/sections/how-it-works.tsx"
+    impact_stats: "apps/web/src/components/sections/impact-stats.tsx"
+
+file_operations:
+  create:
+    - "apps/web/src/styles/tokens.css"
+    - "design-map.yml"
+    - "apps/web/src/lib/realtime.ts"
+    - "apps/web/src/app/admin/overview/page.tsx"
+    - "apps/web/src/app/admin/auctions/page.tsx"
+    - "apps/web/src/app/admin/bids/page.tsx"
+    - "apps/web/src/app/admin/donations/page.tsx"
+    - "apps/web/src/app/admin/users/page.tsx"
+    - "apps/web/src/app/admin/sponsors/page.tsx"
+    - "apps/web/src/app/admin/reports/page.tsx"
+    - "apps/web/src/app/admin/flags/page.tsx"
+    - "apps/web/src/app/admin/dmca/page.tsx"
+    - "apps/web/src/app/donate/page.tsx"
+    - "apps/web/src/app/donate/guidelines/page.tsx"
+    - "apps/web/src/app/donate/receipt/page.tsx"
+    - "apps/web/src/app/thanks/page.tsx"
+    - "apps/web/src/app/privacy/page.tsx"
+    - "apps/web/src/app/terms/page.tsx"
+    - "apps/web/src/app/dmca/page.tsx"
+    - "apps/web/src/app/prohibited-items/page.tsx"
+    - "apps/web/src/app/dashboard/listings/page.tsx"
+    - "apps/web/src/app/dashboard/new/page.tsx"
+    - "apps/web/src/app/dashboard/donations/page.tsx"
+    - "apps/web/src/app/dashboard/profile/page.tsx"
+    - "apps/web/src/components/ui/*"
+    - "infra/migrations/002_donations.up.sql"
+    - "infra/migrations/003_sponsors.up.sql"
+    - "infra/migrations/004_artworks.up.sql"
+    - "reports/upgrade.json"
+    - "UPGRADE_PLAN.md"
+    - "POLICY_PRIVACY.md"
+    - "POLICY_TERMS.md"
+    - "POLICY_DMCA.md"
+    - "POLICY_PROHIBITED_ITEMS.md"
+  modify:
+    - "apps/web/next.config.js"
+    - "apps/web/src/app/layout.tsx"
+    - "apps/web/src/app/globals.css"
+    - "apps/web/src/components/sections/hero.tsx"
+    - "apps/web/src/components/layout/footer.tsx"
+    - "apps/web/src/components/layout/header.tsx"
+    - "apps/web/src/app/auctions/page.tsx"
+    - "vercel.json"
+  delete_if_exists:
+    - "apps/web/src/assets/unused/**"
+
+routes_navigation:
+  add_nav_items:
+    - { label: "Auctions", href: "/auctions" }
+    - { label: "Donate", href: "/donate" }
+    - { label: "Sponsors", href: "/thanks" }
+    - { label: "Dashboard", href: "/dashboard" }
+  footer_items:
+    - { label: "OfferUp", href: "@links.offerup" }
+    - { label: "Facebook", href: "@links.facebook" }
+    - { label: "Privacy", href: "/privacy" }
+    - { label: "Terms", href: "/terms" }
+    - { label: "DMCA", href: "/dmca" }
+    - { label: "Prohibited Items", href: "/prohibited-items" }
+
+seo:
+  sitemap: true
+  robots: true
+  open_graph:
+    site_name: "The Last Collection"
+    default_image: "/assets/og-default.png"
+  structured_data:
+    organization:
+      name: "New World Kids"
+      url: "/"
+      same_as: ["@links.offerup", "@links.facebook"]
+
+analytics_logging:
+  enable_basic_event_logging: true
+  privacy_preserving: true
+  events: ["bid_placed", "auction_created", "donation_submitted", "sponsor_logo_added", "language_changed", "listing_flagged", "dmca_submitted"]
+
+acceptance_criteria:
+  - All pages render in light and dark mode without visual regressions.
+  - Real-time bidding updates arrive within 300ms of server broadcast.
+  - Admin can CRUD auctions, bids, donations, sponsors, users; review flags and DMCA.
+  - EN/ES toggle persists and covers 100% of UI text.
+  - Hero image uses AVIF/WebP and no broken paths.
+  - Footer links to OfferUp, Facebook, Privacy, Terms, DMCA, Prohibited Items.
+  - Donations page shows compliant tax receipt info and PDF export.
+  - Marketplace blocks prohibited items and flags suspected counterfeits.
+  - CSP strict mode enabled with nonces and no inline scripts.
+  - Lighthouse targets met or exceeded.
+  - CI fails on a11y, Lighthouse, or policy regressions.
+
+risk_register:
+  - id: R1
+    risk: "Counterfeit goods"
+    mitigation: "Image/logo OCR hints, manual review, takedown policy"
+  - id: R2
+    risk: "Fraudulent bids or chargebacks"
+    mitigation: "Risk scoring, holds for high-risk, KYC-light for sellers"
+  - id: R3
+    risk: "Privacy non-compliance"
+    mitigation: "DPIA, data mapping, opt-out links, minimal data collection"
+
+commands_for_qoder:
+  - "git checkout -b feat/upgrade-the-last-collection"
+  - "pnpm install"
+  - "pnpm -w build || true"
+  - "apply_bmad_stage baseline"
+  - "apply_bmad_stage model"
+  - "apply_bmad_stage act"
+  - "pnpm -w test && pnpm -w build"
+  - "run_lighthouse_ci --budget ./.lighthouserc.json"
+  - "apply_bmad_stage deliver"
+
+outputs:
+  pr_title: "Upgrade: The Last Collection — Ethical BMAD + Spec-Kit"
+  pr_body_file: "UPGRADE_PLAN.md"
+  report_file: "reports/upgrade.json"
+
+notes:
+  - Keep Encore services as source of truth. Add WebSocket endpoints and BFFs.
+  - If Stripe is enabled later, wire idempotent webhook handlers; never store card data.
+  - Unsplash placeholders until product photography is available.
+  - Prefer shadcn + Radix for a11y. Avoid custom focus rings unless WCAG compliant.
+  - Enforce strict TS, ESLint, Prettier. Block merge on type or lint failures.
+  - Do not train models on user content without explicit opt-in. Add guardrails first to de-risk scale: policy pages, moderation, fraud, DMCA, privacy.
+roadmap_features:
+  - Implement user authentication and profile management
+  - Add comprehensive item management workflow
+  - Implement auction lifecycle automation
+  - Build real-time notification system
+  - Add advanced search and filtering with Meilisearch
+  - Implement Stripe payment flow for auctions
+  - Create donation management system
+  - Add comprehensive admin analytics dashboard
+  - Build sponsor showcase and contributor recognition
+  - Implement pickup scheduling and location management
+  - Build multi-language support infrastructure
+quality_initiatives:
+  - Implement comprehensive error handling and logging
+  - Add comprehensive test coverage
+  - Optimize images and implement CDN delivery
+  - Improve accessibility across all components
+  - Enhance security with rate limiting and input validation
+  - Optimize database queries and add caching
+  - Add comprehensive monitoring and alerting
+issues_and_followups:
+  - Build failed
+  - View build logs for details, or try fixing with Leap.
+  - Fix the following error: unexpected status code 500 <tab button space goes here>
+  - Use Shift + Return for a new line
+feedback:
+  rating: "Unclear prompt (2/10)"
+  summary:
+    - Tighten security and a11y to clear enterprise and sponsor hurdles.
+    - Layer recurring revenue (subs/white-label) to stabilize beyond take rate.
+action_plan:
+  - Merge the canvas YAML as the new Qoder spec and open PR today.
+  - Ship legal/policy routes, moderation pipeline, and admin flag/DMCA screens in the first sprint.
+  - Run CSP nonce migration and enable CI gates for a11y/Lighthouse/policy.
+  - Launch “Pro” seller plan, sponsor placements, and pickup service experiments within 30 days.
+  - Publish reuse impact counters and start B2B white-label outreach in 45 days.
+citations: []
