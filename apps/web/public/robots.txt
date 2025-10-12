@@ -1,0 +1,41 @@
+# robots.txt for The Last Collection
+# https://thelastcollection.org/robots.txt
+
+User-agent: *
+Allow: /
+
+# ChatGPT and AI assistants
+User-agent: ChatGPT-User
+Allow: /
+Allow: /.well-known/ai-plugin.json
+Allow: /.well-known/openapi.yaml
+Allow: /api/plugin/
+
+User-agent: GPTBot
+Allow: /
+
+# Common search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Disallow admin and dashboard areas from indexing
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /login
+
+# Disallow build artifacts
+Disallow: /_next/static/
+Disallow: /_next/image
+
+# Allow specific API endpoints for plugins
+Allow: /api/plugin/
+
+# Sitemap location
+Sitemap: https://thelastcollection.org/sitemap.xml
+
+# Crawl-delay for polite crawling (optional)
+# Crawl-delay: 1

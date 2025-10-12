@@ -1,0 +1,283 @@
+openapi: 3.0.1
+info:
+  title: The Last Collection API
+  description: API for browsing auctions, donating items, and supporting New World Kids through a circular economy marketplace.
+  version: 1.0.0
+  contact:
+    email: support@thelastcollection.org
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://thelastcollection.org/api
+    description: Production server
+
+paths:
+  /plugin/auctions:
+    get:
+      operationId: getAuctions
+      summary: Get list of active auctions
+      description: Returns a list of currently active auctions with items available for bidding
+      parameters:
+        - name: category
+          in: query
+          description: Filter by category (furniture, electronics, sports-cards, comics, art)
+          required: false
+          schema:
+            type: string
+            enum: [furniture, electronics, sports-cards, comics, art]
+        - name: limit
+          in: query
+          description: Maximum number of results to return
+          required: false
+          schema:
+            type: integer
+            default: 10
+            maximum: 50
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auctions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Auction'
+                  total:
+                    type: integer
+                    description: Total number of auctions matching criteria
+
+  /plugin/auctions/{id}:
+    get:
+      operationId: getAuctionById
+      summary: Get auction details
+      description: Returns detailed information about a specific auction
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Auction ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Auction'
+        '404':
+          description: Auction not found
+
+  /plugin/donate/guidelines:
+    get:
+      operationId: getDonationGuidelines
+      summary: Get donation guidelines
+      description: Returns guidelines for what items are accepted and how to donate
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accepted_categories:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        category:
+                          type: string
+                        guidelines:
+                          type: array
+                          items:
+                            type: string
+                  pickup_info:
+                    type: object
+                    properties:
+                      available:
+                        type: boolean
+                      description:
+                        type: string
+                  contact_email:
+                    type: string
+
+  /plugin/commission/info:
+    get:
+      operationId: getCommissionInfo
+      summary: Get commission/consignment information
+      description: Returns information about listing items on commission
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  commission_rate:
+                    type: number
+                    description: Commission percentage charged (e.g., 0.08 for 8%)
+                  minimum_value:
+                    type: number
+                    description: Minimum item value for consignment
+                  process:
+                    type: array
+                    items:
+                      type: string
+                    description: Steps in the consignment process
+                  contact_info:
+                    type: string
+
+  /plugin/faq:
+    get:
+      operationId: getFAQ
+      summary: Get frequently asked questions
+      description: Returns FAQ topics and answers
+      parameters:
+        - name: topic
+          in: query
+          description: Filter by topic (bidding, donations, pickup, commission)
+          required: false
+          schema:
+            type: string
+            enum: [bidding, donations, pickup, commission, general]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  faqs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        topic:
+                          type: string
+                        question:
+                          type: string
+                        answer:
+                          type: string
+
+  /plugin/search:
+    get:
+      operationId: searchItems
+      summary: Search for items
+      description: Search across all auctions and items
+      parameters:
+        - name: q
+          in: query
+          description: Search query
+          required: true
+          schema:
+            type: string
+        - name: category
+          in: query
+          description: Filter by category
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Auction'
+                  total:
+                    type: integer
+
+  /plugin/region/info:
+    get:
+      operationId: getRegionInfo
+      summary: Get Pacific Northwest region information
+      description: Returns information about reuse initiatives in the PNW region
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  region:
+                    type: string
+                  service_area:
+                    type: array
+                    items:
+                      type: string
+                  local_impact:
+                    type: object
+                    properties:
+                      items_diverted:
+                        type: integer
+                      co2_saved_kg:
+                        type: number
+                  pickup_locations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        address:
+                          type: string
+
+components:
+  schemas:
+    Auction:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique auction identifier
+        title:
+          type: string
+          description: Item title
+        description:
+          type: string
+          description: Item description
+        category:
+          type: string
+          enum: [furniture, electronics, sports-cards, comics, art]
+        current_bid:
+          type: number
+          description: Current highest bid amount in USD
+        starting_bid:
+          type: number
+          description: Starting bid amount in USD
+        bid_count:
+          type: integer
+          description: Number of bids placed
+        time_remaining:
+          type: string
+          description: Human-readable time remaining (e.g., "2 hours 15 minutes")
+        ends_at:
+          type: string
+          format: date-time
+          description: Auction end timestamp
+        status:
+          type: string
+          enum: [open, closed, sold]
+        image_url:
+          type: string
+          description: URL to item image
+        condition:
+          type: string
+          description: Item condition description
+        location:
+          type: string
+          description: Pickup location
