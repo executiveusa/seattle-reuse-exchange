@@ -64,6 +64,16 @@ export function Footer() {
                   Terms
                 </Link>
               </li>
+              <li>
+                <Link href="/dmca" className="text-sm text-muted-foreground hover:text-foreground">
+                  DMCA
+                </Link>
+              </li>
+              <li>
+                <Link href="/prohibited-items" className="text-sm text-muted-foreground hover:text-foreground">
+                  Prohibited Items
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
