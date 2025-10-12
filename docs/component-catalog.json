@@ -1,0 +1,252 @@
+{
+  "catalog": "shadcn/ui + Radix UI Components",
+  "version": "1.0.0",
+  "framework": "React + Next.js 14",
+  "styling": "Tailwind CSS + CSS Variables",
+  "accessibility": "WCAG 2.1 AA Compliant",
+  "theme_support": ["light", "dark"],
+  
+  "components": [
+    {
+      "name": "Button",
+      "file": "apps/web/src/components/ui/button.tsx",
+      "library": "shadcn/ui",
+      "primitives": ["@radix-ui/react-slot"],
+      "variants": ["default", "destructive", "outline", "secondary", "ghost", "link"],
+      "sizes": ["default", "sm", "lg", "icon"],
+      "accessibility": {
+        "keyboard_navigable": true,
+        "focus_visible": true,
+        "aria_support": true
+      },
+      "status": "implemented"
+    },
+    {
+      "name": "Input",
+      "file": "apps/web/src/components/ui/input.tsx",
+      "library": "shadcn/ui",
+      "primitives": ["native HTML input"],
+      "features": ["form integration", "validation support"],
+      "accessibility": {
+        "keyboard_navigable": true,
+        "label_association": true,
+        "error_messages": true
+      },
+      "status": "implemented"
+    },
+    {
+      "name": "Textarea",
+      "file": "apps/web/src/components/ui/textarea.tsx",
+      "library": "shadcn/ui",
+      "primitives": ["native HTML textarea"],
+      "features": ["multi-line text", "form integration"],
+      "accessibility": {
+        "keyboard_navigable": true,
+        "label_association": true,
+        "aria_support": true
+      },
+      "status": "implemented"
+    },
+    {
+      "name": "Toast",
+      "file": "apps/web/src/components/ui/toast.tsx",
+      "library": "shadcn/ui",
+      "primitives": ["@radix-ui/react-toast"],
+      "variants": ["default", "destructive"],
+      "features": ["auto-dismiss", "action buttons", "close button"],
+      "accessibility": {
+        "aria_live": true,
+        "keyboard_dismissal": true,
+        "screen_reader_friendly": true
+      },
+      "status": "implemented"
+    },
+    {
+      "name": "Toaster",
+      "file": "apps/web/src/components/ui/toaster.tsx",
+      "library": "shadcn/ui",
+      "primitives": ["@radix-ui/react-toast"],
+      "purpose": "Toast notification container",
+      "features": ["position management", "stacking"],
+      "status": "implemented"
+    }
+  ],
+  
+  "planned_components": [
+    {
+      "name": "Dialog",
+      "primitives": "@radix-ui/react-dialog",
+      "use_cases": ["modals", "confirmations", "forms"],
+      "priority": "high"
+    },
+    {
+      "name": "Select",
+      "primitives": "@radix-ui/react-select",
+      "use_cases": ["dropdowns", "filters", "form fields"],
+      "priority": "high"
+    },
+    {
+      "name": "Checkbox",
+      "primitives": "@radix-ui/react-checkbox",
+      "use_cases": ["forms", "filters", "settings"],
+      "priority": "medium"
+    },
+    {
+      "name": "Dropdown Menu",
+      "primitives": "@radix-ui/react-dropdown-menu",
+      "use_cases": ["navigation", "actions", "context menus"],
+      "priority": "medium"
+    },
+    {
+      "name": "Tabs",
+      "primitives": "@radix-ui/react-tabs",
+      "use_cases": ["content organization", "navigation"],
+      "priority": "medium"
+    },
+    {
+      "name": "Table",
+      "primitives": "native HTML table",
+      "use_cases": ["admin dashboards", "data display"],
+      "priority": "medium"
+    },
+    {
+      "name": "Card",
+      "primitives": "native HTML div",
+      "use_cases": ["content containers", "auction listings"],
+      "priority": "low"
+    },
+    {
+      "name": "Form",
+      "primitives": "react-hook-form",
+      "use_cases": ["all form interactions", "validation"],
+      "priority": "high"
+    },
+    {
+      "name": "Tooltip",
+      "primitives": "@radix-ui/react-tooltip",
+      "use_cases": ["help text", "additional info"],
+      "priority": "low"
+    },
+    {
+      "name": "Sheet",
+      "primitives": "@radix-ui/react-dialog",
+      "use_cases": ["mobile navigation", "sidebars"],
+      "priority": "medium"
+    }
+  ],
+  
+  "design_tokens": {
+    "file": "apps/web/src/styles/tokens.css",
+    "colors": {
+      "primary": "#00B39F (Keppel)",
+      "secondary": "#EBC017 (Saffron)",
+      "neutral": "#3C494E (Charcoal)",
+      "surface": "#0F1314 (Dark)",
+      "surface_alt": "#FFFFFF (Light)",
+      "accent": "#7AD8CC",
+      "danger": "#D92D20",
+      "success": "#22C55E",
+      "warning": "#F59E0B"
+    },
+    "typography": {
+      "headings": "Qanelas Soft, Inter, system-ui",
+      "body": "Open Sans, Inter, system-ui",
+      "base_size": "16px",
+      "scale": 1.2
+    },
+    "spacing": [4, 8, 12, 16, 20, 24, 32, 40, 48],
+    "border_radius": "16px",
+    "shadows": {
+      "sm": "0 1px 2px rgba(0,0,0,.08)",
+      "md": "0 8px 24px rgba(0,0,0,.12)",
+      "lg": "0 20px 50px rgba(0,0,0,.18)"
+    },
+    "motion": {
+      "ease": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+      "duration": "200ms"
+    }
+  },
+  
+  "accessibility_features": [
+    "WCAG 2.1 AA color contrast ratios in both themes",
+    "Semantic HTML structure throughout",
+    "Focus indicators on all interactive elements",
+    "ARIA labels and descriptions where needed",
+    "Keyboard navigation support",
+    "Screen reader compatibility",
+    "Alt text for images",
+    "Proper heading hierarchy (h1-h6)",
+    "Form label associations",
+    "Skip links for navigation"
+  ],
+  
+  "implementation_guidelines": {
+    "component_creation": [
+      "Use shadcn/ui CLI when possible: npx shadcn-ui@latest add [component]",
+      "Ensure Radix UI primitives are used for accessibility",
+      "Apply design tokens from tokens.css",
+      "Support both light and dark themes",
+      "Include proper TypeScript types",
+      "Add JSDoc comments for complex components"
+    ],
+    "styling": [
+      "Use Tailwind utility classes for styling",
+      "Apply glass morphism effects for card-like components",
+      "Ensure responsive design (mobile-first approach)",
+      "Use CSS variables for theme-able properties",
+      "Follow spacing scale from design tokens"
+    ],
+    "accessibility": [
+      "Test with keyboard navigation",
+      "Verify screen reader announcements",
+      "Check color contrast ratios",
+      "Ensure focus management in modals/dialogs",
+      "Add aria-labels for icon-only buttons",
+      "Use semantic HTML elements"
+    ]
+  },
+  
+  "testing_recommendations": [
+    "Unit tests with Vitest for component logic",
+    "Integration tests with React Testing Library",
+    "E2E tests with Playwright for user flows",
+    "Accessibility tests with axe-core or pa11y",
+    "Visual regression tests for design consistency"
+  ],
+  
+  "dependencies": {
+    "ui_libraries": [
+      "@radix-ui/react-avatar",
+      "@radix-ui/react-dialog",
+      "@radix-ui/react-dropdown-menu",
+      "@radix-ui/react-label",
+      "@radix-ui/react-select",
+      "@radix-ui/react-separator",
+      "@radix-ui/react-slot",
+      "@radix-ui/react-toast",
+      "@radix-ui/react-tooltip"
+    ],
+    "styling": [
+      "tailwindcss",
+      "tailwindcss-animate",
+      "tailwind-merge",
+      "class-variance-authority",
+      "clsx"
+    ],
+    "animation": [
+      "framer-motion"
+    ],
+    "icons": [
+      "lucide-react"
+    ]
+  },
+  
+  "notes": [
+    "All components follow shadcn/ui patterns for consistency",
+    "Radix UI primitives ensure accessibility compliance",
+    "Glass morphism design system applied consistently",
+    "Components are theme-aware and support system preferences",
+    "Form components integrate with react-hook-form",
+    "Animation library (framer-motion) available for advanced interactions"
+  ]
+}
