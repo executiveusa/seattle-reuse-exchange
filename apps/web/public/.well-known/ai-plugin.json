@@ -1,0 +1,19 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "The Last Collection",
+  "name_for_model": "last_collection",
+  "description_for_human": "Browse auctions, donate items, and support New World Kids. Find furniture, electronics, sports cards, comics, and art.",
+  "description_for_model": "The Last Collection is a marketplace for reuse and circular economy. Users can: 1) Browse and bid on auctions for furniture, electronics, sports cards, comics, and art; 2) Donate items or cash to support New World Kids nonprofit; 3) List items on commission for consignment sales; 4) Get help with reuse and sustainability in the Pacific Northwest region. All purchases and donations support New World Kids' mission. The plugin provides structured data about available items, bidding status, donation guidelines, and commission/consignment workflows.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://thelastcollection.org/.well-known/openapi.yaml",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://thelastcollection.org/icons/icon-512x512.png",
+  "contact_email": "support@thelastcollection.org",
+  "legal_info_url": "https://thelastcollection.org/terms",
+  "privacy_policy_url": "https://thelastcollection.org/privacy"
+}
