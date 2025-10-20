@@ -54,4 +54,4 @@ Respond in the repo's standard Markdown/summary style (no JSON wrapper required)
 End with a concise PR summary (title + body) suitable for submission.
 ```
 
-This prompt can be copied into your AI IDE to drive a comprehensive yet feasible BMAD workflow that focuses on building and shipping the site using only the tools available in this repository.
+This prompt can be copied into your AI IDE to drive a comprehensive yet feasible BMAD workflow that focuses on building and shipping the site using only the tools available in this repository. 
