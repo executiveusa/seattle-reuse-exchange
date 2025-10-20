@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { siteConfig } from '@/config/site';
+
 export function Footer() {
   return (
     <footer className="border-t bg-muted/50">
@@ -11,22 +13,16 @@ export function Footer() {
               Auctions and donations that fund New World Kids&apos; non-profit work.
             </p>
             <div className="flex gap-4">
-              <Link
-                href="https://offerup.co/profile/newworldkids"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-foreground"
-              >
-                OfferUp
-              </Link>
-              <Link
-                href="https://www.facebook.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-foreground"
-              >
-                Facebook
-              </Link>
+              {siteConfig.social.offerup && (
+                <Link
+                  href={siteConfig.social.offerup}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  OfferUp
+                </Link>
+              )}
             </div>
           </div>
           

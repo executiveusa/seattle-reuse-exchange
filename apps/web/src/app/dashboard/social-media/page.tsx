@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { CalendarDays, Check, Copy, ExternalLink, Loader2, Sparkles, Zap } from 'lucide-react';
 import Link from 'next/link';
 
+import { siteConfig } from '@/config/site';
 import { RubeConnectCard } from '@/components/dashboard/rube-connect-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -48,7 +49,7 @@ const initialState: FormState = {
   campaignGoal: 'Awareness',
   brand: '',
   offer: '',
-  callToAction: 'Visit seattlereuse.org to learn more',
+  callToAction: `Visit ${new URL(siteConfig.baseUrl).hostname} to learn more`,
   audience: 'neighbors across Seattle',
   scheduledDate: '',
   keywords: 'reuse, sustainability, community spotlight',

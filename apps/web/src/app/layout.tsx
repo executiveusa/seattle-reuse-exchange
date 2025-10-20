@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 // import { Inter, Space_Grotesk } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
+import { siteConfig } from '@/config/site';
 import { SessionProvider } from '@/components/providers/session-provider';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
@@ -22,11 +23,12 @@ import { Footer } from '@/components/layout/footer';
 // });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.baseUrl),
   title: {
-    default: 'The Last Collection',
-    template: '%s | The Last Collection',
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description: 'Auctions and donations that fund New World Kids\' non-profit work. Furniture, electronics, sports cards, comics, and art.',
+  description: siteConfig.description,
   keywords: [
     'auction',
     'reuse',
@@ -43,23 +45,26 @@ export const metadata: Metadata = {
   ],
   authors: [
     {
-      name: 'The Last Collection',
+      name: siteConfig.name,
+      url: siteConfig.baseUrl,
     },
   ],
-  creator: 'The Last Collection',
+  creator: siteConfig.name,
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://seattlereuse.exchange',
-    title: 'The Last Collection',
-    description: 'Auctions and donations that fund New World Kids\' non-profit work',
-    siteName: 'The Last Collection',
+    locale: siteConfig.locale,
+    url: siteConfig.baseUrl,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Last Collection',
-    description: 'Auctions and donations that fund New World Kids\' non-profit work',
-    creator: '@seattlereuse',
+    title: siteConfig.name,
+    description: siteConfig.description,
+  },
+  alternates: {
+    canonical: siteConfig.baseUrl,
   },
   icons: {
     icon: '/favicon.ico',

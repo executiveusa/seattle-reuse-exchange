@@ -5,6 +5,8 @@
  * They help search engines and AI assistants understand the content and context.
  */
 
+import { siteConfig } from '@/config/site';
+
 interface OrganizationJsonLdProps {
   name?: string;
   url?: string;
@@ -21,14 +23,11 @@ interface OrganizationJsonLdProps {
 }
 
 export function OrganizationJsonLd({
-  name = 'The Last Collection',
-  url = 'https://thelastcollection.org',
-  logo = 'https://thelastcollection.org/icons/icon-512x512.png',
+  name = siteConfig.name,
+  url = siteConfig.baseUrl,
+  logo = `${siteConfig.baseUrl}/icons/icon-512x512.png`,
   description = 'Circular economy marketplace for quality used items. Supporting New World Kids nonprofit through sustainable auctions and donations.',
-  sameAs = [
-    'https://offerup.co/profile/newworldkids',
-    'https://www.facebook.com/',
-  ],
+  sameAs = [siteConfig.social.offerup].filter(Boolean) as string[],
   address = {
     streetAddress: '1234 Reuse Way',
     addressLocality: 'Seattle',
@@ -52,7 +51,7 @@ export function OrganizationJsonLd({
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      email: 'support@thelastcollection.org',
+      email: siteConfig.contactEmail,
       availableLanguage: ['en', 'es'],
     },
   };
@@ -176,8 +175,8 @@ interface WebSiteJsonLdProps {
 }
 
 export function WebSiteJsonLd({
-  name = 'The Last Collection',
-  url = 'https://thelastcollection.org',
+  name = siteConfig.name,
+  url = siteConfig.baseUrl,
   description = 'Circular economy marketplace for sustainable auctions and donations',
   potentialAction,
 }: WebSiteJsonLdProps) {
