@@ -3,6 +3,12 @@
 
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /login
+Disallow: /_next/static/
+Disallow: /_next/image
 
 # ChatGPT and AI assistants
 User-agent: ChatGPT-User
@@ -13,29 +19,13 @@ Allow: /api/plugin/
 
 User-agent: GPTBot
 Allow: /
-
-# Common search engines
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-# Disallow admin and dashboard areas from indexing
-Disallow: /admin/
-Disallow: /dashboard/
-Disallow: /api/
-Disallow: /login
-
-# Disallow build artifacts
-Disallow: /_next/static/
-Disallow: /_next/image
-
-# Allow specific API endpoints for plugins
+Allow: /.well-known/ai-plugin.json
+Allow: /.well-known/openapi.yaml
 Allow: /api/plugin/
 
 # Sitemap location
 Sitemap: https://thelastcollection.org/sitemap.xml
+Host: thelastcollection.org
 
 # Crawl-delay for polite crawling (optional)
 # Crawl-delay: 1
