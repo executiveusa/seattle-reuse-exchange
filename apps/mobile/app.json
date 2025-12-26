@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "The Last Collection",
+    "slug": "the-last-collection-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "lastcollection",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0D1117"
+    },
+    "userInterfaceStyle": "automatic",
+    "platforms": ["ios", "android", "web"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "org.thelastcollection.app"
+    },
+    "android": {
+      "package": "org.thelastcollection.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#0D1117"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/icon.png"
+    },
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "placeholder-project-id"
+      }
+    }
+  }
+}
