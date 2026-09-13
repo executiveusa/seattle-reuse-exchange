@@ -1,0 +1,39 @@
+{
+  "name": "@seattle-reuse-exchange/mobile",
+  "version": "0.1.0",
+  "private": true,
+  "main": "expo-router/entry",
+  "scripts": {
+    "prepare:assets": "node scripts/generate-assets.js",
+    "prestart": "node scripts/generate-assets.js",
+    "preandroid": "node scripts/generate-assets.js",
+    "preios": "node scripts/generate-assets.js",
+    "preweb": "node scripts/generate-assets.js",
+    "prebuild": "node scripts/generate-assets.js",
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "lint": "expo lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "1.21.0",
+    "expo": "^51.0.0",
+    "expo-blur": "~13.0.0",
+    "expo-linear-gradient": "~13.0.0",
+    "expo-router": "^3.5.11",
+    "expo-status-bar": "~1.12.1",
+    "react": "18.2.0",
+    "react-native": "0.74.3",
+    "react-native-gesture-handler": "~2.16.0",
+    "react-native-safe-area-context": "4.10.1",
+    "@expo-google-fonts/inter": "0.4.2",
+    "expo-font": "~12.0.10"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.27",
+    "@types/react-native": "0.73.0",
+    "typescript": "^5.4.5"
+  }
+}
